@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analizar Video - Mondomío</title>
+<style>
+:root {
+  --sky: #6CC9EC;
+  --navy: #322B7A;
+  --lime: #8CC63E;
+  --paper: #ffffff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--sky);
+  padding: 40px 20px;
+  color: var(--navy);
+}
+.wrap { width: min(1200px, 95vw); margin: auto; }
+h1 { text-align: center; margin-bottom: 30px; }
+.container {
+  background: var(--paper);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(50, 43, 122, 0.15);
+}
+.video-section {
+  margin-bottom: 30px;
+}
+video {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 15px;
+  display: block;
+  margin: 0 auto 20px;
+  background: #000;
+}
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  background: var(--lime);
+  color: white;
+  transition: all 0.3s;
+}
+button:hover {
+  filter: brightness(0.9);
+  transform: translateY(-2px);
+}
+.info-box {
+  background: #f0f7ff;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid var(--lime);
+  margin-top: 20px;
+}
+.info-box h3 { color: var(--navy); margin-bottom: 10px; }
+.info-box p { line-height: 1.6; margin-bottom: 10px; }
+.checklist {
+  margin-top: 20px;
+  padding: 20px;
+  background: #fff9f0;
+  border-radius: 10px;
+}
+.checklist h3 { color: var(--navy); margin-bottom: 15px; }
+.checklist-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.checklist-item:hover {
+  background: #f0fdf4;
+}
+.checklist-item input {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+.checklist-item label {
+  flex: 1;
+  cursor: pointer;
+  font-weight: 500;
+}
+.timestamp {
+  text-align: center;
+  font-weight: bold;
+  color: var(--navy);
+  margin-top: 10px;
+  font-size: 1.2em;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🎬 Analizar Video de Animaciones</h1>
+
+  <div class="container">
+    <div class="video-section">
+      <video id="video" controls>
+        <source src="assets/animaciones.mp4" type="video/mp4">
+        Tu navegador no soporta video
+      </video>
+
+      <div class="controls">
+        <button onclick="document.getElementById('video').play()">▶ Play</button>
+        <button onclick="document.getElementById('video').pause()">⏸ Pausa</button>
+        <button onclick="rewind()">⏮ -5s</button>
+        <button onclick="forward()">⏭ +5s</button>
+      </div>
+
+      <div class="timestamp">
+        <span id="time">0:00</span> / <span id="duration">0:00</span>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h3>📋 Instrucciones</h3>
+      <p>Mientras ves el video, marca los elementos que identifiques de las 8 categorías:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>¿Cuántas animaciones hay en total?</li>
+        <li>¿Qué animal aparece en cada una?</li>
+        <li>¿Cuál es la duración aproximada?</li>
+        <li>¿Cuáles colores predominan?</li>
+      </ul>
+    </div>
+
+    <div class="checklist">
+      <h3>🐦 Categorías Identificadas</h3>
+
+      <div class="checklist-item">
+        <input type="checkbox" id="c1">
+        <label for="c1">LANGUAGE & READING (Pajarito/Araña)</label>
+      </div>
+
+      <div class="checklist-item">
+        <input type="checkbox" id="c2">
+        <label for="c2">MATH & SCIENCE (Abeja/Caracol)</label>
+      </div>
+
+      <div class="checklist-item">
+        <input type="checkbox" id="c3">
+        <label for="c3">BASIC SKILLS (Rana/Catarina)</label>
+      </div>
+
+      <div class="checklist-item">
+        <input type="checkbox" id="c4">
+        <label for="c4">PRETEND CONSTRUCTION (Araña/Gato)</label>
+      </div>
+
+      <div class="checklist-item">
+        <input type="checkbox" id="c5">
+        <label for="c5">SENSORY (Catarina/Libélula)</label>
+      </div>
+
+      <div class="checklist-item">
+        <input type="checkbox" id="c6">
+        <label for="c6">ART (Pajarito/Gato)</label>
+      </div>
+
+      <div class="checklist-item">
+        <input type="checkbox" id="c7">
+        <label for="c7">GYM (Rana/Pajarito)</label>
+      </div>
+
+      <div class="checklist-item">
+        <input type="checkbox" id="c8">
+        <label for="c8">MUSIC (Pajarito/Gato)</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const video = document.getElementById('video');
+const timeSpan = document.getElementById('time');
+const durationSpan = document.getElementById('duration');
+
+video.addEventListener('loadedmetadata', () => {
+  durationSpan.textContent = formatTime(video.duration);
+});
+
+video.addEventListener('timeupdate', () => {
+  timeSpan.textContent = formatTime(video.currentTime);
+});
+
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+function rewind() {
+  video.currentTime = Math.max(0, video.currentTime - 5);
+}
+
+function forward() {
+  video.currentTime = Math.min(video.duration, video.currentTime + 5);
+}
+</script>
+</body>
+</html>

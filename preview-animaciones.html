@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview de Animaciones - Mondomío</title>
+<style>
+:root {
+  --sky: #6CC9EC;
+  --navy: #322B7A;
+  --lime: #8CC63E;
+  --paper: #ffffff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--sky);
+  padding: 40px 20px;
+  color: var(--navy);
+}
+.wrap { width: min(1200px, 95vw); margin: auto; }
+h1 { text-align: center; margin-bottom: 30px; font-size: 2.5em; text-transform: uppercase; }
+.video-container {
+  background: var(--paper);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(50, 43, 122, 0.15);
+}
+video {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 15px;
+  display: block;
+  margin: 0 auto;
+}
+.info {
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+.info h2 { color: var(--navy); margin-bottom: 15px; }
+.options {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-primary {
+  background: var(--lime);
+  color: white;
+}
+.btn-primary:hover {
+  background: var(--lime);
+  filter: brightness(0.9);
+  transform: translateY(-2px);
+}
+.btn-secondary {
+  background: var(--paper);
+  color: var(--navy);
+  border: 2px solid var(--navy);
+}
+.btn-secondary:hover {
+  background: var(--navy);
+  color: var(--paper);
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🎬 Preview de Animaciones</h1>
+
+  <div class="video-container">
+    <video controls autoplay loop>
+      <source src="assets/animaciones.mp4" type="video/mp4">
+      Tu navegador no soporta video HTML5
+    </video>
+  </div>
+
+  <div class="info">
+    <h2>¿Cómo deseas integrar estas animaciones?</h2>
+    <p style="margin-bottom: 15px;">Elige la opción que mejor se adapte al sitio</p>
+
+    <div class="options">
+      <button class="btn-primary" onclick="alert('Opción 1: Embeber videos MP4 directamente en los logos\n✓ Más rápido\n✓ Mejor calidad\n✗ Más peso en el navegador')">
+        Opción 1: Videos MP4
+      </button>
+      <button class="btn-secondary" onclick="alert('Opción 2: Convertir a SVG animado\n✓ Más ligero\n✓ Escalable\n✗ Requiere conversión manual')">
+        Opción 2: SVG Animado
+      </button>
+      <button class="btn-primary" onclick="alert('Opción 3: Extraer frames como GIF\n✓ Compatible\n✓ Rápido\n✗ Menos flexible')">
+        Opción 3: GIF Animado
+      </button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
